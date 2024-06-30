@@ -1,0 +1,71 @@
+// Conectar a la base de datos
+use school
+
+// Crear las colecciones
+db.createCollection("asignaturas")
+db.createCollection("cursos")
+db.createCollection("roles")
+db.createCollection("estudiantes")
+db.createCollection("empleados")
+db.createCollection("documentos")
+
+// Insertar datos en la colección "asignaturas"
+db.asignaturas.insertMany([
+  {"nombre": "ingles", "profesor": "clara", "curso": "primero"},
+  {"nombre": "matematicas", "profesor": "ana", "curso": "segundo"},
+  {"nombre": "economia", "profesor": "estela", "curso": "tercero"}
+])
+
+// Insertar datos en la colección "cursos"
+db.cursos.insertMany([
+  {"nombre": "primero", "jornada": "mañana"},
+  {"nombre": "segundo", "jornada": "mañana"},
+  {"nombre": "tercero", "jornada": "mañana"}
+])
+
+// Insertar datos en la colección "roles"
+db.roles.insertMany([
+  {"tipo": "cedula", "abreviatura": "CC"},
+  {"tipo": "tarjeta", "abreviatura": "TI"},
+  {"tipo": "cedula extranjera", "abreviatura": "CE"}
+])
+
+// Insertar datos en la colección "empleados"
+db.empleados.insertMany([
+  {"nombre": "lina", "apellido": "perez", "numero_documento": "1234321", "email": "gfd@gmail.com", "fecha_nacimiento": "2000-12-14", "rol": "docente", "documento": "cedula"},
+  {"nombre": "clara", "apellido": "ruiz", "numero_documento": "332356", "email": "ruiz@gmail.com", "fecha_nacimiento": "1994-12-23", "rol": "docente", "documento": "cedula"},
+  {"nombre": "ana", "apellido": "sanchez", "numero_documento": "9764467", "email": "ana@gmail.com", "fecha_nacimiento": "1994-10-01", "rol": "docente", "documento": "cedula"}
+])
+
+// Insertar datos en la colección "estudiantes"
+db.estudiantes.insertMany([
+  {"nombre": "felipe", "apellido": "gomez", "numero_documento": "1234321", "documento": "TI", "email": "gomez@gmail.com", "fecha_nacimiento": "2021-10-10", "curso": "primero" "asignaturas":"economia"},
+  {"nombre": "mariana", "apellido": "velez", "numero_documento": "332356", "documento": "TI", "email": "mara@gmail.com", "fecha_nacimiento": "2021-11-07", "curso": "segundo", "asignaturas":"ingles"},
+  {"nombre": "juliana", "apellido": "uribe", "numero_documento": "9764467", "documento": "TI", "email": "juli@gmail.com", "fecha_nacimiento": "2021-03-10", "curso": "tercero", "asignaturas":"ingles"}
+])
+
+// Insertar datos en la colección "cursos_asignaturas"
+db.estudiantes.insertMany([
+  "nombre": "primero", "jornada": "mañana",
+  "nombre": "segundo", "jornada": "mañana",
+  "nombre": "tercero", "jornada": "mañana"
+  ])
+
+CONSULTAS
+
+// 1. ver lista de estudiantes de un grupo especifico
+
+db.estudiantes.find({ "curso": "primero" }).pretty()
+
+// 2. Ver listado de estudiantes que ven una asignatura en especifico
+
+db.estudiantes.find({ "asignaturas": "ingles" }).pretty()
+
+// 3. Ver listado de profesores que le dan clase a un estudiante en especifico
+
+//paso1 
+db.estudiantes.find({ "nombre": "felipe" }).pretty()
+
+//paso2
+db.asignaturas.find({ "nombre": { $in: ["economia"] } }).pretty()
+
